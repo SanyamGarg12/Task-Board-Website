@@ -112,6 +112,10 @@ class TaskUpdate(BaseModel):
 Base.metadata.create_all(bind=engine)
 
 # Routes
+@app.get("/")
+def read_root():
+    return {"message": "Backend is running!"}
+
 @app.post("/api/register", response_model=UserResponse)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
     # Check if user exists
