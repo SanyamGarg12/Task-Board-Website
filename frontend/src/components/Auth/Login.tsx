@@ -3,6 +3,7 @@ import { TextField, Button, Box, Typography, Container, Paper } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import backgroundImage from '../../assets/dashboard_back.jpg';
+import { API_URL } from '../../config';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/login', {
+      const response = await axios.post(`${API_URL}/api/login`, {
         email,
         password,
         username: email.split('@')[0], // Adding username for compatibility

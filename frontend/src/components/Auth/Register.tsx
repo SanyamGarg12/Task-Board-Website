@@ -3,6 +3,7 @@ import { TextField, Button, Box, Typography, Container, Paper } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import backgroundImage from '../../assets/dashboard_back.jpg';
+import { API_URL } from '../../config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/register', {
+      const response = await axios.post(`${API_URL}/api/register`, {
         username,
         email,
         password,

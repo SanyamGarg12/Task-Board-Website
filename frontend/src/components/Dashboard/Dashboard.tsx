@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container,
-  Grid,
   Paper,
   Typography,
   Button,
@@ -29,6 +28,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import backgroundImage from '../../assets/dashboard_back.jpg';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 const statusOptions = ['todo', 'in_progress', 'done'] as const;
 type TaskStatus = typeof statusOptions[number];
@@ -68,7 +68,7 @@ const Dashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/tasks?user_id=${user.id}`);
+      const response = await axios.get(`${API_URL}/api/tasks?user_id=${user.id}`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
   const fetchUsername = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/user/${user.id}`);
+      const response = await axios.get(`${API_URL}/api/user/${user.id}`);
       setUsername(response.data.username);
     } catch (error) {
       setUsername('');
@@ -86,7 +86,7 @@ const Dashboard = () => {
 
   const handleCreateTask = async () => {
     try {
-      await axios.post('http://localhost:8000/api/tasks', {
+      await axios.post(`${API_URL}/api/tasks`, {
         ...newTask,
         user_id: user.id,
       });
@@ -101,7 +101,7 @@ const Dashboard = () => {
   const handleEditTask = async () => {
     if (!currentTask) return;
     try {
-      await axios.put(`http://localhost:8000/api/tasks/${currentTask.id}`, {
+      await axios.put(`${API_URL}/api/tasks/${currentTask.id}`, {
         title: currentTask.title,
         description: currentTask.description,
         status: currentTask.status,
@@ -118,7 +118,7 @@ const Dashboard = () => {
 
   const handleDeleteTask = async (taskId: number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/tasks/${taskId}?user_id=${user.id}`);
+      await axios.delete(`${API_URL}/api/tasks/${taskId}?user_id=${user.id}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -152,7 +152,7 @@ const Dashboard = () => {
     if (!task) return;
     if (task.status !== destination.droppableId) {
       try {
-        await axios.put(`http://localhost:8000/api/tasks/${task.id}`, {
+        await axios.put(`${API_URL}/api/tasks/${task.id}`, {
           title: task.title,
           description: task.description,
           status: destination.droppableId,
