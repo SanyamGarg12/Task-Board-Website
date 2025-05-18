@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 4. Create a `.env` file in the backend directory with the following content:
 ```
-DATABASE_URL=mysql+pymysql://root:your_password@localhost/taskboard
+DATABASE_URL=mysql+pymysql://<username>:<password>@<host>/<database_name>
 ```
 
 5. Start the backend server:

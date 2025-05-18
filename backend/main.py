@@ -24,8 +24,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 # Database configuration
-# DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://taskboard_user:new_password@localhost/taskboard")
-DATABASE_URL = "mysql+pymysql://root:jQjJNmfiVqbZDdlxwoAgMUoMpuNTVDPu@hopper.proxy.rlwy.net:51807/railway"
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
