@@ -1,6 +1,6 @@
 -- Create the database
-CREATE DATABASE IF NOT EXISTS taskboard;
-USE taskboard;
+-- CREATE DATABASE IF NOT EXISTS taskboard;
+-- USE taskboard;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
